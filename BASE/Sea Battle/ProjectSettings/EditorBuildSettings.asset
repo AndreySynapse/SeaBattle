@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 452df2360e6ccb649961914cf3f9ff20
+  - enabled: 1
+    path: Assets/Scenes/Sea Battle Classic.unity
+    guid: d5445ea601bedb745b6235626fb74a9c
   m_configObjects: {}

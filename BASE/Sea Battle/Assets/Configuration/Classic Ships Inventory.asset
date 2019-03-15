@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b535ace4f6b534c932d5a9905d98bb, type: 3}
+  m_Name: Classic Ships Inventory
+  m_EditorClassIdentifier: 
+  _ships:
+  - ship: {fileID: 11400000, guid: 3a999a25f44c0ab448ff26b2e7a21a77, type: 2}
+    count: 1
+  - ship: {fileID: 11400000, guid: e004436787274ab45a373e6755e7e694, type: 2}
+    count: 2
+  - ship: {fileID: 11400000, guid: 4e629b93b9fbe494d8857c8553063d34, type: 2}
+    count: 3
+  - ship: {fileID: 11400000, guid: b18464249d8deee41828a6432991dc72, type: 2}
+    count: 4
