@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 1
   _length: 3
-  _shipPrefab: {fileID: 1305588219821840858, guid: 1cf67cce738bc5a489a6a792a2749fdd,
+  _horizontalPrefab: {fileID: 1305588219821840858, guid: 1cf67cce738bc5a489a6a792a2749fdd,
+    type: 3}
+  _verticalPrefab: {fileID: 6785030526744930390, guid: adfc474894761a345be073a54bdd9437,
     type: 3}

@@ -26,29 +26,25 @@ public class FieldPlaceholder
         {
             for (int i = 0; i < item.count; i++)
             {
-                ShipOrientations orientation = Random.Range(0, 2) == 0 ? ShipOrientations.Horizontal : ShipOrientations.Vertical;
-                orientation = ShipOrientations.Horizontal;
+                ShipOrientations direction = Random.Range(0, 2) == 0 ? ShipOrientations.Horizontal : ShipOrientations.Vertical;
                 int length = item.ship.Length;
 
-                var lines = orientation == ShipOrientations.Horizontal ? GetFreeHorizontalCells(length) : GetFreeVerticalCells(length);
-                int basePosition = GetRandomIndex(lines);
+                var lines = direction == ShipOrientations.Horizontal ? GetFreeHorizontalCells(length) : GetFreeVerticalCells(length);
+                int basePos = GetRandomIndexFromLineList(lines);
 
-                int listIndex = Random.Range(0, lines[basePosition].lists.Count);
-                var list = lines[basePosition].lists[listIndex];
+                int listIndex = Random.Range(0, lines[basePos].lists.Count);
+                var list = lines[basePos].lists[listIndex];
 
-                int additionalPosition = list[Random.Range(0, (list.Count - length) + 1)];
+                int secondPos = list[Random.Range(0, (list.Count - length) + 1)];
 
                 FleetPlacement.ShipPlacement data = new FleetPlacement.ShipPlacement();
-                data.Orientation = orientation;
-                data.Position = orientation == ShipOrientations.Horizontal ? new Vector2Int(additionalPosition, basePosition) : new Vector2Int(basePosition, additionalPosition);
+                data.Orientation = direction;
+                data.Position = direction == ShipOrientations.Horizontal ? new Vector2Int(secondPos, basePos) : new Vector2Int(basePos, secondPos);
                 data.ShipData = item.ship;
 
                 fleet.Placements.Add(data);
 
-                if (orientation == ShipOrientations.Horizontal)
-                    FillHorizontalShipPosition(item.ship.Length, additionalPosition, basePosition);
-                else
-                    FillVerticalShipPosition(item.ship.Length, basePosition, additionalPosition);
+                FillShipPosition(direction, length, direction == ShipOrientations.Horizontal ? secondPos : basePos, direction == ShipOrientations.Horizontal ? basePos : secondPos);
             }
         }
     }
@@ -119,7 +115,7 @@ public class FieldPlaceholder
         return list;
     }
 
-    private int GetRandomIndex(List<ListsLine> list)
+    private int GetRandomIndexFromLineList(List<ListsLine> list)
     {
         List<int> filledList = new List<int>();
 
@@ -132,28 +128,13 @@ public class FieldPlaceholder
         return filledList[Random.Range(0, filledList.Count)];
     }
 
-    private void FillHorizontalShipPosition(int length, int x, int y)
+    private void FillShipPosition(ShipOrientations orientation, int length, int x, int y)
     {
         int minLimitX = Mathf.Clamp(x - 1, 0, _width - 1);
-        int maxLimitX = Mathf.Clamp(x + length, 0, _width - 1);
+        int maxLimitX = orientation == ShipOrientations.Horizontal ? Mathf.Clamp(x + length, 0, _width - 1) : Mathf.Clamp(x + 1, 0, _width - 1);
 
         int minLimitY = Mathf.Clamp(y - 1, 0, _height - 1);
-        int maxLimitY = Mathf.Clamp(y + 1, 0, _height - 1);
-
-        for (int i = minLimitX; i <= maxLimitX; i++)
-            for (int j = minLimitY; j <= maxLimitY; j++)
-            {
-                _field[i, j] = FillTypes.Ship;
-            }
-    }
-
-    private void FillVerticalShipPosition(int length, int x, int y)
-    {
-        int minLimitX = Mathf.Clamp(x - 1, 0, _width - 1);
-        int maxLimitX = Mathf.Clamp(x + 1, 0, _width - 1);
-
-        int minLimitY = Mathf.Clamp(y - 1, 0, _height - 1);
-        int maxLimitY = Mathf.Clamp(y + length, 0, _height - 1);
+        int maxLimitY = orientation == ShipOrientations.Horizontal ? Mathf.Clamp(y + 1, 0, _height - 1) : Mathf.Clamp(y + length, 0, _height - 1);
 
         for (int i = minLimitX; i <= maxLimitX; i++)
             for (int j = minLimitY; j <= maxLimitY; j++)

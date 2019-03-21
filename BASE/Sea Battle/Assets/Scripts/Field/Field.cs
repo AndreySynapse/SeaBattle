@@ -65,7 +65,7 @@ public class Field : MonoBehaviour
                 
         foreach (var ship in _fleet.Placements)
         {
-            SetShipPosition(CreateShip(ship.ShipData.ShipPrefab), ship.Position.x, ship.Position.y);
+            SetShipPosition(CreateShip(ship.Orientation == ShipOrientations.Horizontal ? ship.ShipData.HorizontalPrefab : ship.ShipData.VerticalPrefab), ship.Position.x, ship.Position.y);
         }
     }
 
