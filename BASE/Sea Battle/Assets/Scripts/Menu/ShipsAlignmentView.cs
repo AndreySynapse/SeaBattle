@@ -14,16 +14,7 @@ public class ShipsAlignmentView : MenuView
     public void OnRandomazePlacementButtonClick()
     {
         _field.Clear();
-
-        foreach (var item in _inventory.Ships)
-        {
-            for (int i = 0; i < item.count; i++)
-            {
-                int length = item.ship.Length;
-
-                
-            }
-        }
+        _field.Fill(_inventory);
     }
 
     public void OnBackButtonClick()

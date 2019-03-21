@@ -5,9 +5,9 @@ public class FleetPlacement
 {
     public class ShipPlacement
     {
-        ShipTypes ShipType { get; set; }
-        ShipOrientations Orientation { get; set; }
-        Vector2 Position { get; set; }
+        public ShipData ShipData { get; set; }
+        public ShipOrientations Orientation { get; set; }
+        public Vector2Int Position { get; set; }
     }
 
     public List<ShipPlacement> Placements { get; set; }
