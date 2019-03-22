@@ -87,7 +87,7 @@ namespace AEngine.Menu
 			RefreshViewPanels();
 			
 			MenuView currentView = _currentOrientation == ERealOrientation.Horizontal ? _horizontalView : _verticalView;
-			if (currentView != null)
+			if (currentView != null && Application.isPlaying)
 			{
 				currentView.OnShowMenu();
 			}
@@ -96,7 +96,7 @@ namespace AEngine.Menu
 		public void HideMenu()
 		{
 			MenuView currentView = _currentOrientation == ERealOrientation.Horizontal ? _horizontalView : _verticalView;
-			if (currentView != null)
+			if (currentView != null && Application.isPlaying)
 			{
 				currentView.OnHideMenu();
 			}

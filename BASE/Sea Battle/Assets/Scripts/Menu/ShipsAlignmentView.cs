@@ -3,8 +3,15 @@ using AEngine.Menu;
 
 public class ShipsAlignmentView : MenuView
 {
-    [SerializeField] private Field _field;
+    [SerializeField] private PlacementField _field;
     [SerializeField] private ShipsInventory _inventory;
+
+    public override void OnShowMenu()
+    {
+        base.OnShowMenu();
+
+        GameManager.Instance.CreateGameSession(GameTypes.Classic);
+    }
 
     public void OnPlayButtonClick()
     {
@@ -15,6 +22,10 @@ public class ShipsAlignmentView : MenuView
     {
         _field.Clear();
         _field.Fill(_inventory);
+
+        ClassicGameSession session = (ClassicGameSession)GameManager.Instance.GameSession;
+        session.PlayerPlacement = _field.PlayerPlacement;
+        session.EnemyPlacement = _field.EnemyPlacement;
     }
 
     public void OnBackButtonClick()
