@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldPlaceholder
+public class Placeholder
 {
     private struct ListsLine
     {
@@ -13,7 +13,7 @@ public class FieldPlaceholder
     private int _height;
     private FillTypes[,] _field;
 
-    public FieldPlaceholder(FillTypes[,] field, int width, int height)
+    public Placeholder(FillTypes[,] field, int width, int height)
     {
         _field = field;
         _width = width;

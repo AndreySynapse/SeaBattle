@@ -10,11 +10,10 @@ public class PlacementField : BaseField
     }
 
     [SerializeField] private ShipsInventory _inventory;
-
-    //private FleetPlacement _placement;
+        
     private List<GameObject> _fleet;
 
-    private FieldPlaceholder _fieldPlaceholder;
+    private Placeholder _fieldPlaceholder;
 
     public FleetPlacement PlayerPlacement { get; set; }
     public FleetPlacement EnemyPlacement { get; set; }
@@ -22,18 +21,16 @@ public class PlacementField : BaseField
     protected override void Init()
     {
         base.Init();
-
-        //_placement = new FleetPlacement();
+                
         this.PlayerPlacement = new FleetPlacement();
         this.EnemyPlacement = new FleetPlacement();
         _fleet = new List<GameObject>();
 
-        _fieldPlaceholder = new FieldPlaceholder(this.FieldFilling, _size.x, _size.y);
+        _fieldPlaceholder = new Placeholder(this.FieldFilling, _size.x, _size.y);
     }
 
     public void Clear()
     {
-        //_placement.Clear();
         this.PlayerPlacement.Clear();
         this.EnemyPlacement.Clear();
 
@@ -54,12 +51,10 @@ public class PlacementField : BaseField
         ClearFieldFilling();
 
         _fieldPlaceholder.Fill(this.PlayerPlacement, inventory);
-
-        //_fieldPlaceholder.Fill(_placement, inventory);
-
+                
         foreach (var ship in this.PlayerPlacement.Placements)
         {
-            SetShipPosition(CreateShip(ship.Orientation == ShipOrientations.Horizontal ? ship.ShipData.HorizontalPrefab : ship.ShipData.VerticalPrefab), ship.Position.x, ship.Position.y);
+            PutObjectToField(CreateShip(ship.Orientation == ShipOrientations.Horizontal ? ship.ShipData.HorizontalPrefab : ship.ShipData.VerticalPrefab), ship.Position.x, ship.Position.y);
         }
     }
 

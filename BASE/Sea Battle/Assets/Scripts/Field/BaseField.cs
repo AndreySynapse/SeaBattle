@@ -39,8 +39,8 @@ public class BaseField : MonoBehaviour
                 this.FieldFilling[x, y] = FillTypes.Empty;
     }
 
-    protected void SetShipPosition(Transform ship, int x, int y)
+    protected void PutObjectToField(Transform target, int x, int y)
     {
-        ship.localPosition = _startPosition + Vector2.right * x * _cellSize.x + Vector2.down * y * _cellSize.y;
+        target.localPosition = _startPosition + Vector2.right * x * _cellSize.x + Vector2.down * y * _cellSize.y;
     }
 }

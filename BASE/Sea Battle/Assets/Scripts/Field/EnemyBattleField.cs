@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerBattleField : BaseField
+public class EnemyBattleField : BaseField
 {
     [SerializeField] private Transform _cachedTransform;
     [SerializeField] private Collider _cachedCollider;
@@ -10,7 +10,7 @@ public class PlayerBattleField : BaseField
 
     private GameSession _session;
     private Placeholder _placeHolder;
-
+    
     private void Start()
     {
         _session = GameManager.Instance.GameSession;
@@ -22,21 +22,40 @@ public class PlayerBattleField : BaseField
 
     private void Update()
     {
-        if (_session.Step == GameSession.StepOrders.Enemy)
+        if (_session.Step == GameSession.StepOrders.Player && Input.GetMouseButtonUp(0))
         {
-            int x = Random.Range(0, _size.x);
-            int y = Random.Range(0, _size.y);
+            Camera c = Camera.main;
 
-            SetShot(x, y);
-            _session.Step = GameSession.StepOrders.Player;
+            var touchPoint = Input.mousePosition;
+            var ray = c.ScreenPointToRay(touchPoint);
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit) && hit.collider == _cachedCollider)
+            {
+                var pos = hit.point;
+                pos = _cachedTransform.InverseTransformPoint(pos);
+
+                if (pos.x > -_renderSize.x / 2f + _placementOffset.x && pos.y < _renderSize.y / 2f - _placementOffset.y)
+                {
+                    pos.x = Mathf.Clamp(pos.x + _renderSize.x / 2f - _placementOffset.x, 0f, _renderSize.x);
+                    pos.y = Mathf.Clamp(_renderSize.y - (pos.y + _renderSize.y / 2f) - _placementOffset.y, 0f, _renderSize.y);
+                    int x = Mathf.Clamp((int)pos.x / (int)_cellSize.x, 0, _size.x - 1);
+                    int y = Mathf.Clamp((int)pos.y / (int)_cellSize.y, 0, _size.y - 1);
+
+                    //SetShipPosition(_shot, x, y);
+                    SetShot(x, y);
+
+                    _session.Step = GameSession.StepOrders.Enemy;
+                }
+            }
         }
     }
 
     public void Fill(ShipsInventory inventory)
     {
         ClearFieldFilling();
-
-        FleetPlacement fleet = _session.PlayerPlacement;
+                
+        FleetPlacement fleet = _session.EnemyPlacement;
 
         if (fleet == null || fleet.Placements.Count == 0)
         {

@@ -9,8 +9,6 @@ public class ShipsAlignmentView : MenuView
     public override void OnShowMenu()
     {
         base.OnShowMenu();
-
-        GameManager.Instance.CreateGameSession(GameTypes.Classic);
     }
 
     public void OnPlayButtonClick()
@@ -23,7 +21,7 @@ public class ShipsAlignmentView : MenuView
         _field.Clear();
         _field.Fill(_inventory);
 
-        ClassicGameSession session = (ClassicGameSession)GameManager.Instance.GameSession;
+        GameSession session = GameManager.Instance.GameSession;
         session.PlayerPlacement = _field.PlayerPlacement;
         session.EnemyPlacement = _field.EnemyPlacement;
     }

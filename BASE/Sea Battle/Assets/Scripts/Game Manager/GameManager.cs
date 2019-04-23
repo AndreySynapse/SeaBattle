@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using AEngine;
+﻿using AEngine;
 
 public enum GameTypes
 {
@@ -9,38 +8,14 @@ public enum GameTypes
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    private BaseGameSession _gameSession;
-
-    public BaseGameSession GameSession
-    {
-        get
-        {
-            if (_gameSession == null)
-                CreateGameSession(GameTypes.Classic);
-
-            return _gameSession;
-        }
-
-        private set { _gameSession = value; }
-    }
-
+    public GameSession GameSession { get; set; }
+    
     protected override void Init()
     {
         base.Init();
 
+        this.GameSession = this.gameObject.AddComponent<GameSession>();
+
         DontDestroyOnLoad(this);
-    }
-
-    public void CreateGameSession(GameTypes gameType)
-    {
-        if (_gameSession != null)
-            Destroy(_gameSession);
-
-        switch (gameType)
-        {
-            case GameTypes.Classic:
-                _gameSession = this.gameObject.AddComponent<ClassicGameSession>();
-                break;
-        }
     }
 }
