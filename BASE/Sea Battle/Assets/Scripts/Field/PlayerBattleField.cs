@@ -2,10 +2,7 @@
 
 public class PlayerBattleField : Field
 {
-    [SerializeField] private Transform _cachedTransform;
     [SerializeField] private Collider _cachedCollider;
-    [SerializeField] private ShipsInventory _inventory;
-
     [SerializeField] private Transform _shot;
 
     private GameSession _session;
@@ -14,9 +11,7 @@ public class PlayerBattleField : Field
     private void Start()
     {
         _session = GameManager.Instance.GameSession;
-
-        Fill(_inventory);
-
+                
         _shot.SetAsLastSibling();
     }
 
@@ -30,38 +25,6 @@ public class PlayerBattleField : Field
             SetShot(x, y);
             _session.Step = GameSession.StepOrders.Player;
         }
-    }
-
-    public void Fill(ShipsInventory inventory)
-    {
-        Clear();
-
-        FleetPlacement fleet = _session.PlayerPlacement;
-
-        if (fleet == null || fleet.Placements.Count == 0)
-        {
-            if (_placeHolder == null)
-                _placeHolder = new Placeholder(this.FieldFilling, _logicSize.x, _logicSize.y);
-
-            if (fleet == null)
-                fleet = new FleetPlacement();
-
-            _placeHolder.Fill(fleet, inventory);
-        }
-
-        foreach (var ship in fleet.Placements)
-        {
-            PutObjectToField(CreateShip(ship.Orientation == ShipOrientations.Horizontal ? ship.ShipData.HorizontalPrefab : ship.ShipData.VerticalPrefab), ship.Position.x, ship.Position.y);
-        }
-    }
-
-    private Transform CreateShip(GameObject prefab)
-    {
-        Transform ship = GameObject.Instantiate<Transform>(prefab.transform, Vector3.zero, Quaternion.identity, this.transform);
-        ship.localPosition = Vector3.zero;
-        ship.localScale = Vector3.one;
-
-        return ship;
     }
 
     private void SetShot(int x, int y)

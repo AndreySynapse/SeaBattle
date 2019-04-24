@@ -11,6 +11,7 @@ public enum FillTypes
 
 public class Field : MonoBehaviour
 {
+    [SerializeField] protected Transform _cachedTransform;
     [SerializeField] protected Vector2Int _renderSize;
     [SerializeField] protected Vector2Int _logicSize;
     [SerializeField] protected Vector2 _placementOffset;
@@ -58,7 +59,7 @@ public class Field : MonoBehaviour
         target.localPosition = _startPosition + Vector2.right * x * _cellSize.x + Vector2.down * y * _cellSize.y;
     }
 
-    public void Fill(FleetPlacement fleet)
+    public virtual void Fill(FleetPlacement fleet)
     {
         Clear();
         

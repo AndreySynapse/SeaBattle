@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8405b7483648290428f221dc26a52e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cachedTransform: {fileID: 156066280}
   _renderSize: {x: 450, y: 450}
   _logicSize: {x: 10, y: 10}
   _placementOffset: {x: 42, y: 43}

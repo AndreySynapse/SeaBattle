@@ -13,18 +13,7 @@ public class Placeholder
     private int _height;
     private FillTypes[,] _field;
 
-    public Placeholder()
-    {
-
-    }
-
-    public Placeholder(FillTypes[,] field, int width, int height) // Obsolete
-    {
-        _field = field;
-        _width = width;
-        _height = height;
-    }
-    
+    #region Class Interface
     public FleetPlacement GeneratePlacement(Field field, ShipsInventory inventory)
     {
         _field = field.FieldFilling;
@@ -37,8 +26,9 @@ public class Placeholder
 
         return fleet;
     }
+    #endregion
 
-    public void Fill(FleetPlacement fleet, ShipsInventory inventory)
+    private void Fill(FleetPlacement fleet, ShipsInventory inventory)
     {
         foreach (ShipsInventory.ShipsCell item in inventory.Ships)
         {

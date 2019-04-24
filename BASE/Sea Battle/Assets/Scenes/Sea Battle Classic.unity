@@ -1052,6 +1052,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96fbac9ba704714f97f459e106d8a7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerField: {fileID: 301685508}
+  _enemyField: {fileID: 94059605}
+  _inventory: {fileID: 11400000, guid: 614d589e798ba0e42bc683a668e79256, type: 2}
 --- !u!1 &775962017
 GameObject:
   m_ObjectHideFlags: 0
