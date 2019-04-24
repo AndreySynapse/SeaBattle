@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerBattleField : BaseField
+public class PlayerBattleField : Field
 {
     [SerializeField] private Transform _cachedTransform;
     [SerializeField] private Collider _cachedCollider;
@@ -24,8 +24,8 @@ public class PlayerBattleField : BaseField
     {
         if (_session.Step == GameSession.StepOrders.Enemy)
         {
-            int x = Random.Range(0, _size.x);
-            int y = Random.Range(0, _size.y);
+            int x = Random.Range(0, _logicSize.x);
+            int y = Random.Range(0, _logicSize.y);
 
             SetShot(x, y);
             _session.Step = GameSession.StepOrders.Player;
@@ -34,14 +34,14 @@ public class PlayerBattleField : BaseField
 
     public void Fill(ShipsInventory inventory)
     {
-        ClearFieldFilling();
+        Clear();
 
         FleetPlacement fleet = _session.PlayerPlacement;
 
         if (fleet == null || fleet.Placements.Count == 0)
         {
             if (_placeHolder == null)
-                _placeHolder = new Placeholder(this.FieldFilling, _size.x, _size.y);
+                _placeHolder = new Placeholder(this.FieldFilling, _logicSize.x, _logicSize.y);
 
             if (fleet == null)
                 fleet = new FleetPlacement();

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemyBattleField : BaseField
+public class EnemyBattleField : Field
 {
     [SerializeField] private Transform _cachedTransform;
     [SerializeField] private Collider _cachedCollider;
@@ -39,8 +39,8 @@ public class EnemyBattleField : BaseField
                 {
                     pos.x = Mathf.Clamp(pos.x + _renderSize.x / 2f - _placementOffset.x, 0f, _renderSize.x);
                     pos.y = Mathf.Clamp(_renderSize.y - (pos.y + _renderSize.y / 2f) - _placementOffset.y, 0f, _renderSize.y);
-                    int x = Mathf.Clamp((int)pos.x / (int)_cellSize.x, 0, _size.x - 1);
-                    int y = Mathf.Clamp((int)pos.y / (int)_cellSize.y, 0, _size.y - 1);
+                    int x = Mathf.Clamp((int)pos.x / (int)_cellSize.x, 0, _logicSize.x - 1);
+                    int y = Mathf.Clamp((int)pos.y / (int)_cellSize.y, 0, _logicSize.y - 1);
 
                     //SetShipPosition(_shot, x, y);
                     SetShot(x, y);
@@ -53,14 +53,14 @@ public class EnemyBattleField : BaseField
 
     public void Fill(ShipsInventory inventory)
     {
-        ClearFieldFilling();
+        Clear();
                 
         FleetPlacement fleet = _session.EnemyPlacement;
 
         if (fleet == null || fleet.Placements.Count == 0)
         {
             if (_placeHolder == null)
-                _placeHolder = new Placeholder(this.FieldFilling, _size.x, _size.y);
+                _placeHolder = new Placeholder(this.FieldFilling, _logicSize.x, _logicSize.y);
 
             if (fleet == null)
                 fleet = new FleetPlacement();

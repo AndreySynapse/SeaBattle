@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderSize: {x: 450, y: 450}
-  _size: {x: 10, y: 10}
+  _logicSize: {x: 10, y: 10}
   _placementOffset: {x: 43, y: 43}
   _cachedTransform: {fileID: 94059602}
   _cachedCollider: {fileID: 94059606}
@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderSize: {x: 450, y: 450}
-  _size: {x: 10, y: 10}
+  _logicSize: {x: 10, y: 10}
   _placementOffset: {x: 43, y: 43}
   _cachedTransform: {fileID: 301685505}
   _cachedCollider: {fileID: 301685509}
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderSize: {x: 10, y: 10}
-  _size: {x: 10, y: 10}
+  _logicSize: {x: 0, y: 0}
   _placementOffset: {x: 0, y: 0}
   _cachedTransform: {fileID: 0}
   _cachedCollider: {fileID: 0}

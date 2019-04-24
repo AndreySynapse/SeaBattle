@@ -361,13 +361,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 156066279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 382ebdbb0d5e22c4ab31fec7992a8bde, type: 3}
+  m_Script: {fileID: 11500000, guid: 8405b7483648290428f221dc26a52e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _renderSize: {x: 450, y: 450}
-  _size: {x: 10, y: 10}
+  _logicSize: {x: 10, y: 10}
   _placementOffset: {x: 42, y: 43}
-  _inventory: {fileID: 11400000, guid: 614d589e798ba0e42bc683a668e79256, type: 2}
 --- !u!65 &156066284
 BoxCollider:
   m_ObjectHideFlags: 0

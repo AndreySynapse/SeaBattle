@@ -14,7 +14,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         base.Init();
 
-        this.GameSession = this.gameObject.AddComponent<GameSession>();
+        if (this.GameSession == null)
+            this.GameSession = this.gameObject.AddComponent<GameSession>();
 
         DontDestroyOnLoad(this);
     }
