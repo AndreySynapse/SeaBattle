@@ -34,5 +34,7 @@ public class PlayerBattleField : Field
 
         PutObjectToField(shot, x, y);
         shot.gameObject.SetActive(true);
+
+        print(this.FieldFilling[x, y]);
     }
 }

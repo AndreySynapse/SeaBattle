@@ -15,15 +15,11 @@ public class GameView : MenuView
 
         if (_session == null)
             _session = GameManager.Instance.GameSession;
-                
-        _session.PlayerPlacement = CheckFleetPlacement(_session.PlayerPlacement, _playerField);
-        _playerField.Clear();
-        _playerField.Fill(_session.PlayerPlacement);
 
-        _session.EnemyPlacement = CheckFleetPlacement(_session.EnemyPlacement, _enemyField);
-        _enemyField.Clear();
-        _enemyField.Fill(_session.EnemyPlacement);
-
+        _session.PlayerField = _playerField;
+        _session.EnemyField = _enemyField;
+        _session.Inventory = _inventory;
+        
         _session.StartSession();
     }
     
@@ -32,16 +28,5 @@ public class GameView : MenuView
         _session.StopSession();
         
         TransitionManager.MakeTransition("Menu", EMenu.MainMenu.ToString());
-    }
-
-    private FleetPlacement CheckFleetPlacement(FleetPlacement fleet, Field field)
-    {
-        if (fleet == null || fleet.Placements == null || fleet.Placements.Count == 0)
-        {
-            Placeholder holder = new Placeholder();
-            fleet = holder.GeneratePlacement(field, _inventory);
-        }
-
-        return fleet;
     }
 }
