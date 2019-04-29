@@ -63,20 +63,26 @@ public class Field : MonoBehaviour
     {
         Clear();
         
-        foreach (var ship in fleet.Placements)
+        foreach (FleetPlacement.ShipPlacement shipPlacement in fleet.Placements)
         {
-            PutObjectToField(CreateShip(ship.Orientation == ShipOrientations.Horizontal ? ship.ShipData.HorizontalPrefab : ship.ShipData.VerticalPrefab), ship.Position.x, ship.Position.y);
+            GameObject prefab = shipPlacement.Orientation == ShipOrientations.Horizontal ? shipPlacement.ShipData.HorizontalPrefab : shipPlacement.ShipData.VerticalPrefab;
+            PutObjectToField(CreateShip(prefab), shipPlacement.Position.x, shipPlacement.Position.y);
+
+            Ship ship = prefab.GetComponent<Ship>();
+            for (int i = 0; i < ship.Size.x; i++)
+                for (int j = 0; j < ship.Size.y; j++)
+                    this.FieldFilling[shipPlacement.Position.x + i, shipPlacement.Position.y + j] = FillTypes.Ship;
         }
     }
 
     private Transform CreateShip(GameObject prefab)
     {
-        Transform ship = GameObject.Instantiate<Transform>(prefab.transform, Vector3.zero, Quaternion.identity, this.transform);
-        ship.localPosition = Vector3.zero;
-        ship.localScale = Vector3.one;
+        Transform shipTransform = GameObject.Instantiate<Transform>(prefab.transform, Vector3.zero, Quaternion.identity, this.transform);
+        shipTransform.localPosition = Vector3.zero;
+        shipTransform.localScale = Vector3.one;
 
-        _fleet.Add(ship.gameObject);
+        _fleet.Add(shipTransform.gameObject);
 
-        return ship;
+        return shipTransform;
     }
 }

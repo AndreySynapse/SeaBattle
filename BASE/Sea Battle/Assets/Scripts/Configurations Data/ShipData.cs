@@ -4,6 +4,7 @@
 public class ShipData : ScriptableObject
 {
     [SerializeField] private int _length;
+    [SerializeField] private Vector2Int _size;
     [SerializeField] private GameObject _horizontalPrefab;
     [SerializeField] private GameObject _verticalPrefab;
         

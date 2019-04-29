@@ -8,5 +8,7 @@ public enum ShipOrientations
 
 public class Ship : MonoBehaviour
 {
+    [SerializeField] private Vector2Int _size;
 
+    public Vector2Int Size { get { return _size; } }
 }

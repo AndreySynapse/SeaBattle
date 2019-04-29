@@ -330,12 +330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68562bc262a27f4390ef348f34a59ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cachedTransform: {fileID: 94059602}
   _renderSize: {x: 450, y: 450}
   _logicSize: {x: 10, y: 10}
   _placementOffset: {x: 43, y: 43}
-  _cachedTransform: {fileID: 94059602}
   _cachedCollider: {fileID: 94059606}
-  _inventory: {fileID: 11400000, guid: 614d589e798ba0e42bc683a668e79256, type: 2}
   _shot: {fileID: 1137087269}
 --- !u!65 &94059606
 BoxCollider:
@@ -574,12 +573,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299d67b1fa424e74c91b01bbeaf0b922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cachedTransform: {fileID: 301685505}
   _renderSize: {x: 450, y: 450}
   _logicSize: {x: 10, y: 10}
   _placementOffset: {x: 43, y: 43}
-  _cachedTransform: {fileID: 301685505}
   _cachedCollider: {fileID: 301685509}
-  _inventory: {fileID: 11400000, guid: 614d589e798ba0e42bc683a668e79256, type: 2}
   _shot: {fileID: 775962018}
 --- !u!65 &301685509
 BoxCollider:
@@ -804,12 +802,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299d67b1fa424e74c91b01bbeaf0b922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cachedTransform: {fileID: 0}
   _renderSize: {x: 10, y: 10}
   _logicSize: {x: 0, y: 0}
   _placementOffset: {x: 0, y: 0}
-  _cachedTransform: {fileID: 0}
   _cachedCollider: {fileID: 0}
-  _inventory: {fileID: 0}
   _shot: {fileID: 0}
 --- !u!23 &518671468
 MeshRenderer:

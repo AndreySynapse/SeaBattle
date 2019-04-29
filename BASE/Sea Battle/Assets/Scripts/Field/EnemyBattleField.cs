@@ -6,8 +6,7 @@ public class EnemyBattleField : Field
     [SerializeField] private Transform _shot;
 
     private GameSession _session;
-    private Placeholder _placeHolder;
-    
+        
     private void Start()
     {
         _session = GameManager.Instance.GameSession;
@@ -37,16 +36,13 @@ public class EnemyBattleField : Field
                     int x = Mathf.Clamp((int)pos.x / (int)_cellSize.x, 0, _logicSize.x - 1);
                     int y = Mathf.Clamp((int)pos.y / (int)_cellSize.y, 0, _logicSize.y - 1);
 
-                    //SetShipPosition(_shot, x, y);
-                    SetShot(x, y);
-
-                    _session.Step = GameSession.StepOrders.Enemy;
+                    _session.MakeStep(x, y);
                 }
             }
         }
     }
         
-    private void SetShot(int x, int y)
+    public void SetShot(int x, int y)
     {
         var shot = GameObject.Instantiate(_shot, Vector3.zero, Quaternion.identity, _cachedTransform) as Transform;
         shot.localScale = Vector3.one;
