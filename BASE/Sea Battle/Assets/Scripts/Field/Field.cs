@@ -18,7 +18,7 @@ public class Field : MonoBehaviour
 
     protected Vector2 _cellSize;
     protected Vector2 _startPosition;
-    private List<GameObject> _fleet;
+    private List<Ship> _fleet;
 
     public FillTypes[,] FieldFilling { get; set; }
     public Vector2Int Size { get { return _logicSize; } }
@@ -30,7 +30,7 @@ public class Field : MonoBehaviour
 
     protected virtual void Init()
     {
-        _fleet = new List<GameObject>();
+        _fleet = new List<Ship>();
 
         _cellSize = new Vector2((_renderSize.x - _placementOffset.x) / _logicSize.x, (_renderSize.y - _placementOffset.y) / _logicSize.y);
         _startPosition = new Vector2((-_renderSize.x / 2f) + _placementOffset.x + _cellSize.x / 2f, (_renderSize.y / 2f) - _placementOffset.y - _cellSize.y / 2f);
@@ -48,7 +48,7 @@ public class Field : MonoBehaviour
         if (_fleet != null && _fleet.Count > 0)
         {
             foreach (var item in _fleet)
-                Destroy(item);
+                Destroy(item.gameObject);
 
             _fleet.Clear();
         }
@@ -59,7 +59,7 @@ public class Field : MonoBehaviour
         target.localPosition = _startPosition + Vector2.right * x * _cellSize.x + Vector2.down * y * _cellSize.y;
     }
 
-    public virtual void Fill(FleetPlacement fleet)
+    public void Fill(FleetPlacement fleet)
     {
         Clear();
         
@@ -77,12 +77,14 @@ public class Field : MonoBehaviour
 
     private Transform CreateShip(GameObject prefab)
     {
-        Transform shipTransform = GameObject.Instantiate<Transform>(prefab.transform, Vector3.zero, Quaternion.identity, this.transform);
-        shipTransform.localPosition = Vector3.zero;
-        shipTransform.localScale = Vector3.one;
+        Ship ship = Instantiate(prefab, Vector3.zero, Quaternion.identity, this.transform).GetComponent<Ship>();
 
-        _fleet.Add(shipTransform.gameObject);
+        ship.CachedTransform.localPosition = Vector3.zero;
+        ship.CachedTransform.localScale = Vector3.one;
+        ship.Init();
 
-        return shipTransform;
+        _fleet.Add(ship);
+
+        return ship.CachedTransform;
     }
 }

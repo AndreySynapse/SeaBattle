@@ -1,11 +1,5 @@
 ﻿using AEngine;
 
-public enum GameTypes
-{
-    Classic,
-    Special
-}
-
 public class GameManager : MonoSingleton<GameManager>
 {
     public GameSession GameSession { get; set; }

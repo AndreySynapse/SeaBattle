@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {
-    public const float ENEMY_DELAY = 0.5f;
+    public const float ENEMY_DELAY = 0.3f;
 
     public enum StepOrders
     {

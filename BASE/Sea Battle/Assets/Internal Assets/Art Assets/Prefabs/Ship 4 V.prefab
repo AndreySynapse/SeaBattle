@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dda37a0f1af20d14abfe6675e03b3750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cachedTransform: {fileID: 4332561201480081298}
   _size: {x: 1, y: 4}
 --- !u!1 &4332561201803226862
 GameObject:

@@ -73,7 +73,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 348}
   m_MaxSize: {x: 4004, y: 8048}
   vertical: 1
-  controlID: 89
+  controlID: 82
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 448}
   m_MaxSize: {x: 4002, y: 8048}
   vertical: 1
-  controlID: 70
+  controlID: 103
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 915, y: 448}
   m_MaxSize: {x: 22010, y: 10024}
   vertical: 0
-  controlID: 88
+  controlID: 50
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -597,7 +597,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: d6fbffff
+      m_ExpandedIDs: d6fbffff98290000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -694,7 +694,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Game Manager
+    - Assets/Internal Assets/Configuration/Ships
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
@@ -706,7 +706,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 72740400
     m_LastClickedID: 291954
-    m_ExpandedIDs: 000000008e260000b8260000d0260000f22600004427000090270000c42700000c2800003e280000922800009428000002290000082900001229000016290000082b0000
+    m_ExpandedIDs: 0000000092260000bc260000d4260000f62600004827000094270000c827000010280000422800009628000098280000062900000c290000162900001a290000082b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -734,7 +734,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000008e260000b8260000d0260000f22600004427000090270000c42700000c2800003e280000922800009428000002290000082900001229000016290000082b0000
+    m_ExpandedIDs: ffffffff0000000092260000bc260000d4260000f6260000482700006027000094270000c827000010280000422800009628000098280000062900000c290000162900001a290000082b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: GameManager
