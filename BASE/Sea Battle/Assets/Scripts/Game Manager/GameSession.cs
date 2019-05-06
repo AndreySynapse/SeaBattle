@@ -19,9 +19,7 @@ public class GameSession : MonoBehaviour
     public ShipsInventory Inventory { get; set; }
 
     public StepOrders Step { get; set; }
-
-    private Placeholder placeholder;
-
+    
     #region Game Session
     public void StartSession()
     {
@@ -34,10 +32,7 @@ public class GameSession : MonoBehaviour
         this.EnemyPlacement = CheckFleetPlacement(this.EnemyPlacement, this.EnemyField, this.Inventory);
         this.EnemyField.Clear();
         this.EnemyField.Fill(this.EnemyPlacement);
-
-        placeholder = new Placeholder();
-        placeholder.Init(this.PlayerField);
-
+        
         StartCoroutine(SessionProcess());
     }
 
@@ -60,19 +55,22 @@ public class GameSession : MonoBehaviour
 
                 case StepOrders.Enemy:
                     yield return new WaitForSeconds(ENEMY_DELAY);
+                    
+                    var space = this.PlayerField.GetFreeHorizontalSpace();
 
-                    /*
-                    var list = placeholder.GetFreeHorizontalCells();
-                    var subList = list[Random.Range(0, list.Count)];
+                    if (space.Count > 0)
+                    {
+                        var line = space[Random.Range(0, space.Count)];
 
-                    int y = subList.index;
-                    int x = subList.lists[Random.Range(0, subList.lists.Count)][0];
-                    */
+                        int x = line.list[Random.Range(0, line.list.Count)];
+                        int y = line.index;
 
-                    int x = Random.Range(0, this.PlayerField.Size.x);
-                    int y = Random.Range(0, this.PlayerField.Size.y);
-                                        
-                    MakeStep(this.PlayerField, x, y);
+                        MakeStep(this.PlayerField, x, y);
+                    }
+                    else
+                    {
+                        this.Step = StepOrders.None;
+                    }
                     break;
             }
 

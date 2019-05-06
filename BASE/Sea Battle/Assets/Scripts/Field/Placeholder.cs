@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Placeholder
 {
-    public struct ListsLine
+    private struct ListsLine
     {
         public int index;
         public List<List<int>> lists;
@@ -14,13 +14,6 @@ public class Placeholder
     private FillTypes[,] _field;
 
     #region Class Interface
-    public void Init(Field field)
-    {
-        _field = field.FieldFilling;
-        _width = field.Size.x;
-        _height = field.Size.y;
-    }
-
     public FleetPlacement GeneratePlacement(Field field, ShipsInventory inventory)
     {
         _field = field.FieldFilling;
@@ -32,11 +25,6 @@ public class Placeholder
         Fill(fleet, inventory);
 
         return fleet;
-    }
-
-    public List<ListsLine> GetFreeHorizontalCells()
-    {
-        return GetFreeHorizontalCells(1);
     }
     #endregion
 
