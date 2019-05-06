@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {
-    public const float ENEMY_DELAY = 0.3f;
+    public const float ENEMY_DELAY = 0.25f;
 
     public enum StepOrders
     {
@@ -20,6 +20,8 @@ public class GameSession : MonoBehaviour
 
     public StepOrders Step { get; set; }
 
+    private Placeholder placeholder;
+
     #region Game Session
     public void StartSession()
     {
@@ -32,6 +34,9 @@ public class GameSession : MonoBehaviour
         this.EnemyPlacement = CheckFleetPlacement(this.EnemyPlacement, this.EnemyField, this.Inventory);
         this.EnemyField.Clear();
         this.EnemyField.Fill(this.EnemyPlacement);
+
+        placeholder = new Placeholder();
+        placeholder.Init(this.PlayerField);
 
         StartCoroutine(SessionProcess());
     }
@@ -55,14 +60,19 @@ public class GameSession : MonoBehaviour
 
                 case StepOrders.Enemy:
                     yield return new WaitForSeconds(ENEMY_DELAY);
+
+                    /*
+                    var list = placeholder.GetFreeHorizontalCells();
+                    var subList = list[Random.Range(0, list.Count)];
+
+                    int y = subList.index;
+                    int x = subList.lists[Random.Range(0, subList.lists.Count)][0];
+                    */
+
                     int x = Random.Range(0, this.PlayerField.Size.x);
                     int y = Random.Range(0, this.PlayerField.Size.y);
-
-                    this.PlayerField.SetShot(x, y);
-                    
-                    if (this.PlayerField.FieldFilling[x, y] != FillTypes.Ship)
-                        this.Step = StepOrders.Player;
-
+                                        
+                    MakeStep(this.PlayerField, x, y);
                     break;
             }
 
@@ -76,13 +86,16 @@ public class GameSession : MonoBehaviour
 
         this.Step = StepOrders.None;
     }
-
-    public void MakeStep(int x, int y)
+        
+    public void MakeStep(BattleField field, int x, int y)
     {
-        this.EnemyField.SetShot(x, y);
+        if (field.FieldFilling[x, y] != FillTypes.WreckedShip && field.FieldFilling[x, y] != FillTypes.Shot)
+        {
+            field.SetShot(x, y);
 
-        if (this.EnemyField.FieldFilling[x, y] != FillTypes.Ship)
-            this.Step = StepOrders.Enemy;
+            if (field.FieldFilling[x, y] != FillTypes.WreckedShip)
+                this.Step = this.Step == StepOrders.Player ? StepOrders.Enemy : StepOrders.Player;
+        }
     }
     #endregion
 

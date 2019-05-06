@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 
-public class EnemyBattleField : Field
+public class EnemyBattleField : BattleField
 {
-    [SerializeField] private Collider _cachedCollider;
-    [SerializeField] private Transform _shot;
-
     private GameSession _session;
-        
-    private void Start()
+
+    protected override void Init()
     {
+        base.Init();
+
         _session = GameManager.Instance.GameSession;
-                
         _shot.SetAsLastSibling();
     }
 
@@ -35,19 +33,10 @@ public class EnemyBattleField : Field
                     pos.y = Mathf.Clamp(_renderSize.y - (pos.y + _renderSize.y / 2f) - _placementOffset.y, 0f, _renderSize.y);
                     int x = Mathf.Clamp((int)pos.x / (int)_cellSize.x, 0, _logicSize.x - 1);
                     int y = Mathf.Clamp((int)pos.y / (int)_cellSize.y, 0, _logicSize.y - 1);
-
-                    _session.MakeStep(x, y);
+                    
+                    _session.MakeStep(this, x, y);
                 }
             }
         }
-    }
-        
-    public void SetShot(int x, int y)
-    {
-        var shot = GameObject.Instantiate(_shot, Vector3.zero, Quaternion.identity, _cachedTransform) as Transform;
-        shot.localScale = Vector3.one;
-
-        PutObjectToField(shot, x, y);
-        shot.gameObject.SetActive(true);
     }
 }

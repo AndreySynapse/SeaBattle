@@ -1064,7 +1064,7 @@ GameObject:
   - component: {fileID: 775962020}
   - component: {fileID: 775962019}
   m_Layer: 5
-  m_Name: Player Image
+  m_Name: Shot Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1217,7 +1217,7 @@ GameObject:
   - component: {fileID: 1137087271}
   - component: {fileID: 1137087270}
   m_Layer: 5
-  m_Name: Enemy Image
+  m_Name: Shot Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

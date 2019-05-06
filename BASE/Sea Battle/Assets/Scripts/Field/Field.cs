@@ -6,6 +6,7 @@ public enum FillTypes
     Empty,
     Shot,
     Ship,
+    WreckedShip,
     NearShip
 }
 
@@ -69,6 +70,7 @@ public class Field : MonoBehaviour
             PutObjectToField(CreateShip(prefab), shipPlacement.Position.x, shipPlacement.Position.y);
 
             Ship ship = prefab.GetComponent<Ship>();
+            ship.Position = shipPlacement.Position;
             for (int i = 0; i < ship.Size.x; i++)
                 for (int j = 0; j < ship.Size.y; j++)
                     this.FieldFilling[shipPlacement.Position.x + i, shipPlacement.Position.y + j] = FillTypes.Ship;
