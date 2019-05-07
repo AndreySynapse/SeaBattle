@@ -98,12 +98,25 @@ public class GameSession : MonoBehaviour
         if (field.FieldFilling[x, y] != FillTypes.WreckedShip && field.FieldFilling[x, y] != FillTypes.Shot)
         {
             field.SetShot(x, y);
-
-            /// TODO: find and destroy ship if need. Use lives.
+            
             if (field.FieldFilling[x, y] == FillTypes.WreckedShip)
             {
                 Ship ship = FindShip(field.Fleet, x, y);
-                
+
+                if (ship != null)
+                {
+                    ship.SetDamage(x, y);
+                    
+                    if (ship.Lives <= 0)
+                        PutShipToPool(field, ship);
+                    if (field.Fleet.Count <= 0)
+                    {
+                        print("GAME OVER");
+                        this.Step = StepOrders.None;
+                    }
+                }
+                else
+                    Debug.LogError("This ship should not be NULL");
             }
 
             if (field.FieldFilling[x, y] != FillTypes.WreckedShip)
@@ -137,5 +150,16 @@ public class GameSession : MonoBehaviour
         }
 
         return ship;
+    }
+
+    private void PutShipToPool(BattleField field, Ship ship)
+    {
+        for (int i = 0; i < field.Fleet.Count; i++)
+            if (field.Fleet[i] == ship)
+            {
+                field.FleetPool.Add(field.Fleet[i]);
+                field.Fleet.RemoveAt(i);
+                break;
+            }
     }
 }

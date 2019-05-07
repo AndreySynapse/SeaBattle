@@ -25,4 +25,9 @@ public class Ship : MonoBehaviour
     {
         return (this.Position.x <= x && x < this.Position.x + _size.x) && (this.Position.y <= y && y < this.Position.y + _size.y);
     }
+
+    public void SetDamage(int x, int y)
+    {
+        this.Lives--;
+    }
 }
