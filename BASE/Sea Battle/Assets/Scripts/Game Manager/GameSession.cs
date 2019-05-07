@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using AEngine;
 
 public class GameSession : MonoBehaviour
 {
@@ -13,6 +15,11 @@ public class GameSession : MonoBehaviour
         Enemy
     }
 
+    public event Action OnGameOver;
+
+    private EnemyStepLogic _botLogic;
+    private bool _isActive;
+
     public FleetPlacement PlayerPlacement { get; set; }
     public FleetPlacement EnemyPlacement { get; set; }
     public PlayerBattleField PlayerField { get; set; }
@@ -21,8 +28,6 @@ public class GameSession : MonoBehaviour
 
     public StepOrders Step { get; set; }
 
-    private bool _isActive;
-    
     #region Game Session
     public void StartSession()
     {
@@ -38,9 +43,10 @@ public class GameSession : MonoBehaviour
             this.EnemyField.Clear();
             this.EnemyField.Fill(this.EnemyPlacement);
 
-            this.Step = Random.Range(0, 2) == 0 ? StepOrders.Player : StepOrders.Enemy;
+            _botLogic = new EnemyStepLogic();
 
-
+            this.Step = UnityEngine.Random.Range(0, 2) == 0 ? StepOrders.Player : StepOrders.Enemy;
+            
             StartCoroutine(SessionProcess());
             _isActive = true;
         }
@@ -63,22 +69,14 @@ public class GameSession : MonoBehaviour
 
                 case StepOrders.Enemy:
                     yield return new WaitForSeconds(ENEMY_DELAY);
+                                        
+                    Vector2Int target = _botLogic.GetTargetPoint(this.PlayerField);
 
-                    var space = this.PlayerField.GetFreeHorizontalSpace();
-
-                    if (space.Count > 0)
-                    {
-                        var line = space[Random.Range(0, space.Count)];
-
-                        int x = line.list[Random.Range(0, line.list.Count)];
-                        int y = line.index;
-
-                        MakeStep(this.PlayerField, x, y);
-                    }
+                    if (_botLogic.StepState == EnemyStepLogic.StepStates.Correct)
+                        MakeStep(this.PlayerField, target.x, target.y);
                     else
-                    {
                         this.Step = StepOrders.None;
-                    }
+
                     break;
             }
 
@@ -111,8 +109,8 @@ public class GameSession : MonoBehaviour
                         PutShipToPool(field, ship);
                     if (field.Fleet.Count <= 0)
                     {
-                        print("GAME OVER");
                         this.Step = StepOrders.None;
+                        OnGameOver.SafeInvoke();
                     }
                 }
                 else

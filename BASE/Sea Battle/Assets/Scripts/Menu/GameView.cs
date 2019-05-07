@@ -6,6 +6,7 @@ public class GameView : MenuView
     [SerializeField] private PlayerBattleField _playerField;
     [SerializeField] private EnemyBattleField _enemyField;
     [SerializeField] private ShipsInventory _inventory;
+    [SerializeField] private GameObject _gameOverText;
 
     private GameSession _session;
 
@@ -22,6 +23,9 @@ public class GameView : MenuView
             _session.EnemyField = _enemyField;
             _session.Inventory = _inventory;
 
+            _session.OnGameOver -= OnGameOver;
+            _session.OnGameOver += OnGameOver;
+
             _session.StartSession();
         }
     }
@@ -29,7 +33,15 @@ public class GameView : MenuView
     public void OnCloseButtonClick()
     {
         _session.StopSession();
-        
+        _session.OnGameOver -= OnGameOver;
+
         TransitionManager.MakeTransition("Menu", EMenu.MainMenu.ToString());
     }
+
+    #region Events
+    private void OnGameOver()
+    {
+        _gameOverText.SetActive(true);
+    }
+    #endregion
 }
