@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameSession : MonoBehaviour
@@ -19,27 +20,34 @@ public class GameSession : MonoBehaviour
     public ShipsInventory Inventory { get; set; }
 
     public StepOrders Step { get; set; }
+
+    private bool _isActive;
     
     #region Game Session
     public void StartSession()
     {
-        this.Step = StepOrders.None;
+        if (!_isActive)
+        {
+            this.Step = StepOrders.None;
 
-        this.PlayerPlacement = CheckFleetPlacement(this.PlayerPlacement, this.PlayerField, this.Inventory);
-        this.PlayerField.Clear();
-        this.PlayerField.Fill(this.PlayerPlacement);
+            this.PlayerPlacement = CheckFleetPlacement(this.PlayerPlacement, this.PlayerField, this.Inventory);
+            this.PlayerField.Clear();
+            this.PlayerField.Fill(this.PlayerPlacement);
 
-        this.EnemyPlacement = CheckFleetPlacement(this.EnemyPlacement, this.EnemyField, this.Inventory);
-        this.EnemyField.Clear();
-        this.EnemyField.Fill(this.EnemyPlacement);
-        
-        StartCoroutine(SessionProcess());
+            this.EnemyPlacement = CheckFleetPlacement(this.EnemyPlacement, this.EnemyField, this.Inventory);
+            this.EnemyField.Clear();
+            this.EnemyField.Fill(this.EnemyPlacement);
+
+            this.Step = Random.Range(0, 2) == 0 ? StepOrders.Player : StepOrders.Enemy;
+
+
+            StartCoroutine(SessionProcess());
+            _isActive = true;
+        }
     }
 
     private IEnumerator SessionProcess()
     {
-        this.Step = Random.Range(0, 2) == 0 ? StepOrders.Player : StepOrders.Enemy;
-
         if (this.Step == StepOrders.Enemy)
             yield return new WaitForSeconds(ENEMY_DELAY);
 
@@ -55,7 +63,7 @@ public class GameSession : MonoBehaviour
 
                 case StepOrders.Enemy:
                     yield return new WaitForSeconds(ENEMY_DELAY);
-                    
+
                     var space = this.PlayerField.GetFreeHorizontalSpace();
 
                     if (space.Count > 0)
@@ -81,7 +89,7 @@ public class GameSession : MonoBehaviour
     public void StopSession()
     {
         StopAllCoroutines();
-
+        _isActive = false;
         this.Step = StepOrders.None;
     }
         
@@ -90,6 +98,13 @@ public class GameSession : MonoBehaviour
         if (field.FieldFilling[x, y] != FillTypes.WreckedShip && field.FieldFilling[x, y] != FillTypes.Shot)
         {
             field.SetShot(x, y);
+
+            /// TODO: find and destroy ship if need. Use lives.
+            if (field.FieldFilling[x, y] == FillTypes.WreckedShip)
+            {
+                Ship ship = FindShip(field.Fleet, x, y);
+                
+            }
 
             if (field.FieldFilling[x, y] != FillTypes.WreckedShip)
                 this.Step = this.Step == StepOrders.Player ? StepOrders.Enemy : StepOrders.Player;
@@ -106,5 +121,21 @@ public class GameSession : MonoBehaviour
         }
 
         return fleet;
+    }
+
+    private Ship FindShip(List<Ship> fleet, int x, int y)
+    {
+        Ship ship = null;
+
+        foreach (Ship item in fleet)
+        {
+            if (item.IsShipSpace(x, y))
+            {
+                ship = item;
+                break;
+            }
+        }
+
+        return ship;
     }
 }

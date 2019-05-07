@@ -19,7 +19,7 @@ public class Field : MonoBehaviour
 
     protected Vector2 _cellSize;
     protected Vector2 _startPosition;
-    private List<Ship> _fleet;
+    public List<Ship> Fleet { get; private set; }
 
     public FillTypes[,] FieldFilling { get; set; }
     public Vector2Int Size { get { return _logicSize; } }
@@ -31,7 +31,7 @@ public class Field : MonoBehaviour
 
     protected virtual void Init()
     {
-        _fleet = new List<Ship>();
+        this.Fleet = new List<Ship>();
 
         _cellSize = new Vector2((_renderSize.x - _placementOffset.x) / _logicSize.x, (_renderSize.y - _placementOffset.y) / _logicSize.y);
         _startPosition = new Vector2((-_renderSize.x / 2f) + _placementOffset.x + _cellSize.x / 2f, (_renderSize.y / 2f) - _placementOffset.y - _cellSize.y / 2f);
@@ -46,12 +46,12 @@ public class Field : MonoBehaviour
             for (int x = 0; x < _logicSize.x; x++)
                 this.FieldFilling[x, y] = FillTypes.Empty;
 
-        if (_fleet != null && _fleet.Count > 0)
+        if (this.Fleet != null && this.Fleet.Count > 0)
         {
-            foreach (var item in _fleet)
+            foreach (var item in this.Fleet)
                 Destroy(item.gameObject);
 
-            _fleet.Clear();
+            this.Fleet.Clear();
         }
     }
 
@@ -76,7 +76,7 @@ public class Field : MonoBehaviour
                     this.FieldFilling[shipPlacement.Position.x + i, shipPlacement.Position.y + j] = FillTypes.Ship;
         }
     }
-
+    
     private Transform CreateShip(GameObject prefab)
     {
         Ship ship = Instantiate(prefab, Vector3.zero, Quaternion.identity, this.transform).GetComponent<Ship>();
@@ -85,7 +85,7 @@ public class Field : MonoBehaviour
         ship.CachedTransform.localScale = Vector3.one;
         ship.Init();
 
-        _fleet.Add(ship);
+        this.Fleet.Add(ship);
 
         return ship.CachedTransform;
     }

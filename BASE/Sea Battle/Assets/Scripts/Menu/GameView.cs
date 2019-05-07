@@ -11,16 +11,19 @@ public class GameView : MenuView
 
     public override void OnShowMenu()
     {
-        base.OnShowMenu();
+        if (Application.isPlaying)
+        {
+            base.OnShowMenu();
 
-        if (_session == null)
-            _session = GameManager.Instance.GameSession;
+            if (_session == null)
+                _session = GameManager.Instance.GameSession;
 
-        _session.PlayerField = _playerField;
-        _session.EnemyField = _enemyField;
-        _session.Inventory = _inventory;
-        
-        _session.StartSession();
+            _session.PlayerField = _playerField;
+            _session.EnemyField = _enemyField;
+            _session.Inventory = _inventory;
+
+            _session.StartSession();
+        }
     }
     
     public void OnCloseButtonClick()
