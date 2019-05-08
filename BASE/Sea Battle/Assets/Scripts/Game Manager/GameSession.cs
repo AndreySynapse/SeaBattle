@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 using AEngine;
@@ -44,7 +43,7 @@ public class GameSession : MonoBehaviour
             this.EnemyField.Fill(this.EnemyPlacement);
 
             _botLogic = new EnemyStepLogic();
-
+            
             this.Step = UnityEngine.Random.Range(0, 2) == 0 ? StepOrders.Player : StepOrders.Enemy;
             
             StartCoroutine(SessionProcess());
@@ -99,14 +98,14 @@ public class GameSession : MonoBehaviour
             
             if (field.FieldFilling[x, y] == FillTypes.WreckedShip)
             {
-                Ship ship = FindShip(field.Fleet, x, y);
+                Ship ship = field.FindShip(x, y);
 
                 if (ship != null)
                 {
                     ship.SetDamage(x, y);
                     
                     if (ship.Lives <= 0)
-                        PutShipToPool(field, ship);
+                        field.PutShipToPool(ship);
                     if (field.Fleet.Count <= 0)
                     {
                         this.Step = StepOrders.None;
@@ -132,32 +131,5 @@ public class GameSession : MonoBehaviour
         }
 
         return fleet;
-    }
-
-    private Ship FindShip(List<Ship> fleet, int x, int y)
-    {
-        Ship ship = null;
-
-        foreach (Ship item in fleet)
-        {
-            if (item.IsShipSpace(x, y))
-            {
-                ship = item;
-                break;
-            }
-        }
-
-        return ship;
-    }
-
-    private void PutShipToPool(BattleField field, Ship ship)
-    {
-        for (int i = 0; i < field.Fleet.Count; i++)
-            if (field.Fleet[i] == ship)
-            {
-                field.FleetPool.Add(field.Fleet[i]);
-                field.Fleet.RemoveAt(i);
-                break;
-            }
-    }
+    }   
 }
