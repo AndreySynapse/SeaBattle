@@ -19,6 +19,25 @@ public class EnemyStepLogic
         Down
     }
 
+    private enum Orientations
+    {
+        Unknown,
+        Horizontal,
+        Vertical
+    }
+
+    private class Target
+    {
+        public Vector2Int position;
+        public Orientations orientation;
+
+        public Target(Vector2Int targetPos, Orientations targetOrientation)
+        {
+            position = targetPos;
+            orientation = targetOrientation;
+        }
+    }
+
     private List<Vector2Int> _targetShips;
     private Vector2Int _nextTargetPoint;
     private Directions _lastDirection;
